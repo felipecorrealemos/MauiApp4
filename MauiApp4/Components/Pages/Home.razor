@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using MauiApp4.Components.model
+@using MauiApp4.Components.DAO
 @inject NavigationManager Navigation
 
 <h1>Hello, world!</h1>
@@ -19,10 +20,10 @@
 		<InputText class="form-control col-5" id="nome" @bind-Value="novoCliente.nome" required /><br>
 
 		<label for="cpf">CPF:</label><br>
-		<InputText class="form-control col-5" id="cpf" @bind-Value="novoCliente.cpf" /><br>
+		<InputText class="form-control col-5" id="cpf" @bind-Value="novoCliente.cpf" required/><br>
 
 		<label for="telefone">Telefone:</label><br>
-		<InputText class="form-control col-5" id="telefone" @bind-Value="novoCliente.telefone" /><br>
+		<InputText class="form-control col-5" id="telefone" @bind-Value="novoCliente.telefone" required/><br>
 		<br>
 		<button class="btn btn-primary" type="submit">Enviar</button>
 		<button class="btn btn-info" @onclick="lista">lista</button>
@@ -33,19 +34,31 @@
 @code {
 	Cliente novoCliente = new();
 	bool mostrarNotificacao = false;
+	bool salvando;
 
-	async Task SalvarCliente()
+	private async Task SalvarCliente()
 	{
-		Cliente.UltimoCliente = novoCliente;
+		if(salvando)
+		{
+			return;
+		}
+
+		salvando = true;
+		bool retorno = await new ClienteDAO().SalvarCadastro(novoCliente);
+
+		if (retorno)
+		{
+			novoCliente = new Cliente();
+			mostrarNotificacao = true;
+			await Task.Delay(2000);
+			mostrarNotificacao = false;
+			
+		}
+		//Cliente.UltimoCliente = novoCliente;
 
 		// Zera os campos após salvar
 		//novoCliente = new();
-
-		mostrarNotificacao = true;
-
-		await Task.Delay(1000);
-		mostrarNotificacao = false;
-
+		salvando = false;
 	}
 
 	private void lista()

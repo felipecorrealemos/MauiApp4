@@ -1,11 +1,16 @@
 ﻿@page "/lista"
 @using MauiApp4.Components.model
+@using MauiApp4.Components.DAO
 
 <h3>Lista de Cadastros</h3>
 
-@if (@Cliente.UltimoCliente != null)
+@if (listaClientes == null)
 {
+	<p>Nenhum cliente cadastrado.</p>
+}
 
+else
+{
 	<table class="table">
 		<thead>
 			<tr>
@@ -15,19 +20,28 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>@Cliente.UltimoCliente.nome</td>
-				<td>@Cliente.UltimoCliente.cpf</td>
-				<td>@Cliente.UltimoCliente.telefone</td>
-			</tr>
+
+			@foreach (var cliente in listaClientes)
+			{
+				<tr>
+					<td>@cliente.nome</td>
+					<td>@cliente.cpf</td>
+					<td>@cliente.telefone</td>
+				</tr>
+			}
 		</tbody>
 	</table>
-}
-else{
-	<p>Nenhum cliente cadastrado.</p>
 }
 
 @code {
 
+	// Lista para armazenar os clientes carregados
+	List<Cliente>? listaClientes;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var clienteDao = new ClienteDAO();
+		listaClientes = await clienteDao.ListarClientes();
+	}
 
 }
