@@ -3,6 +3,9 @@
 
 <h3>Lista de Cadastros</h3>
 
+@if (@Cliente.UltimoCliente != null)
+{
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -19,7 +22,10 @@
 			</tr>
 		</tbody>
 	</table>
-
+}
+else{
+	<p>Nenhum cliente cadastrado.</p>
+}
 
 @code {
 
