@@ -6,6 +6,10 @@
 
 @if (listaClientes == null)
 {
+	<p>Carregando...</p>
+}
+else if (listaClientes.Count == 0)
+{
 	<p>Nenhum cliente cadastrado.</p>
 }
 

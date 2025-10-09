@@ -48,7 +48,7 @@
 
 		if (retorno)
 		{
-			novoCliente = new Cliente();
+			
 			mostrarNotificacao = true;
 			await Task.Delay(2000);
 			mostrarNotificacao = false;
@@ -57,7 +57,7 @@
 		//Cliente.UltimoCliente = novoCliente;
 
 		// Zera os campos após salvar
-		//novoCliente = new();
+		novoCliente = new Cliente();
 		salvando = false;
 	}
 
