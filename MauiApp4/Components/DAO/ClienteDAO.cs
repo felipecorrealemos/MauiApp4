@@ -66,7 +66,6 @@ namespace MauiApp4.Components.DAO
                         telefone = reader.GetString(3)
                     };
 
-
                     lista.Add(cliente);
                 }
 
