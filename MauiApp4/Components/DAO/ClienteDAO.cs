@@ -61,6 +61,7 @@ namespace MauiApp4.Components.DAO
                 {
                     var cliente = new Cliente()
                     {
+                        id = reader.GetInt32(0),
                         nome = reader.GetString(1),
                         cpf = reader.GetString(2),
                         telefone = reader.GetString(3)
@@ -78,6 +79,6 @@ namespace MauiApp4.Components.DAO
             }
         }
 
-
+      
     }
 }

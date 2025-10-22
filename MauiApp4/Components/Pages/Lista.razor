@@ -1,40 +1,25 @@
 ﻿@page "/lista"
 
-
 <h3>Lista de Cadastros</h3>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>CPF</th>
-				<th>Telefone</th>
-			</tr>
-		</thead>
-		<tbody>
-			@if (listaClientes != null)
-			{
-				@foreach (var cliente in listaClientes)
-				{
-					<tr>
-						<td>@cliente.nome</td>
-						<td>@cliente.cpf</td>
-						<td>@cliente.telefone</td>
-					</tr>
-				}
-			}
-		</tbody>
-	</table>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>CPF</th>
+			<th>Telefone</th>
+			<th>Opções</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>nome</td>
+			<td>cpf</td>
+			<td>telefone</td>
+		</tr>
+	</tbody>
+</table>
 
 @code {
-
-	// Lista para armazenar os clientes carregados
-	List<Cliente>? listaClientes;
-
-	protected override async Task OnInitializedAsync()
-	{
-		var clienteDao = new ClienteDAO();
-		listaClientes = await clienteDao.ListarClientes();
-	}
 
 }
