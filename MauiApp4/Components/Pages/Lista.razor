@@ -1,20 +1,8 @@
 ﻿@page "/lista"
-@using MauiApp4.Components.model
-@using MauiApp4.Components.DAO
+
 
 <h3>Lista de Cadastros</h3>
 
-@if (listaClientes == null)
-{
-	<p>Carregando...</p>
-}
-else if (listaClientes.Count == 0)
-{
-	<p>Nenhum cliente cadastrado.</p>
-}
-
-else
-{
 	<table class="table">
 		<thead>
 			<tr>
@@ -24,18 +12,19 @@ else
 			</tr>
 		</thead>
 		<tbody>
-
-			@foreach (var cliente in listaClientes)
+			@if (listaClientes != null)
 			{
-				<tr>
-					<td>@cliente.nome</td>
-					<td>@cliente.cpf</td>
-					<td>@cliente.telefone</td>
-				</tr>
+				@foreach (var cliente in listaClientes)
+				{
+					<tr>
+						<td>@cliente.nome</td>
+						<td>@cliente.cpf</td>
+						<td>@cliente.telefone</td>
+					</tr>
+				}
 			}
 		</tbody>
 	</table>
-}
 
 @code {
 

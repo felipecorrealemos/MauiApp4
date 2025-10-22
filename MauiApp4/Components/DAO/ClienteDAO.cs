@@ -77,5 +77,7 @@ namespace MauiApp4.Components.DAO
                return new List<Cliente>();
             }
         }
+
+
     }
 }
