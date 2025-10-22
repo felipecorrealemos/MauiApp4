@@ -70,13 +70,12 @@ namespace MauiApp4.Components.DAO
                 }
 
                 return lista;
-               
             }
+
             catch (Exception ex)
             {
                return new List<Cliente>();
             }
         }
-
     }
 }
