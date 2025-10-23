@@ -1,4 +1,6 @@
 ﻿@page "/lista"
+@using System.Threading.Tasks
+@inject NavigationManager Navigation
 
 <h3>Lista de Cadastros</h3>
 
@@ -12,18 +14,22 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			@if (lista != null)
+
+		@if (lista != null)
+		{
+			@foreach (var cliente in lista)
 			{
-				@foreach (var cliente in lista)
-				{
+				<tr>
 					<td>@cliente.nome</td>
 					<td>@cliente.cpf</td>
 					<td>@cliente.telefone</td>
-				}
+					<td><button class="btn btn-outline-secondary" @onclick="() => BuscarClientePorID(cliente.id)">Editar</button></td>
+					<td><button class="btn btn-outline-danger" @onclick="() => DeleteId(cliente.id)">Excluir</button></td>
+				</tr>
 			}
-						
-		</tr>
+		}
+
+
 	</tbody>
 </table>
 
@@ -35,4 +41,14 @@
 		lista = await new ClienteDAO().ListarClientes();
 	}
 
+	private async Task DeleteId(int id)
+	{
+		await new ClienteDAO().ExcluirCliente(id);
+		lista = await new ClienteDAO().ListarClientes();
+	}
+
+	private async Task BuscarClientePorID(int id)
+	{
+		Navigation.NavigateTo($"/home/{id}");
+	}
 }

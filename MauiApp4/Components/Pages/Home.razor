@@ -1,4 +1,6 @@
 ﻿@page "/"
+@page "/Home/{id:int}"
+
 @inject NavigationManager Navigation
 
 <EditForm Model="@cliente" OnValidSubmit="SalvarCliente">
@@ -20,8 +22,21 @@
 <br>
 
 @code {
+	[Parameter]
+	public int id { get; set; }
+
 	Cliente cliente = new();
 	bool salvando;
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (id > 0)
+		{
+			cliente = await new ClienteDAO().BuscarClientePorID(id);
+		}
+	}
+
+
 
 	private async Task SalvarCliente()
 	{
@@ -32,7 +47,17 @@
 
 		salvando = true;
 
-		await new ClienteDAO().SalvarCadastro(cliente);
+		if (id > 0)
+		{
+			await new ClienteDAO().AtualizarCliente(cliente);
+		}
+
+		else
+		{
+			await new ClienteDAO().SalvarCadastro(cliente);
+		}
+
+		
 
 		// Zera os campos após salvar
 		cliente = new Cliente();
