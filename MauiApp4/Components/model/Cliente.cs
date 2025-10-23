@@ -12,8 +12,6 @@ namespace MauiApp4.Components.model
         public string cpf { get; set; } = string.Empty;
         public string telefone { get; set; } = string.Empty;
 
-        public static Cliente UltimoCliente { get; set; }
-
     }
 
 }
