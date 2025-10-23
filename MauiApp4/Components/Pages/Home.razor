@@ -17,6 +17,10 @@
 		<br>
 		<button class="btn btn-primary" type="submit">Enviar</button>
 		<button class="btn btn-info" @onclick="lista">lista</button>
+		@if (!string.IsNullOrEmpty(mensagemTemporaria))
+		{
+			<p class="@textColor">@mensagemTemporaria</p>
+		}
 	</div>
 </EditForm>
 <br>
@@ -27,6 +31,9 @@
 
 	Cliente cliente = new();
 	bool salvando;
+	bool salvou;
+	string mensagemTemporaria = "";
+	string textColor = "";
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -35,8 +42,6 @@
 			cliente = await new ClienteDAO().BuscarClientePorID(id);
 		}
 	}
-
-
 
 	private async Task SalvarCliente()
 	{
@@ -54,18 +59,36 @@
 
 		else
 		{
-			await new ClienteDAO().SalvarCadastro(cliente);
+			salvou = await new ClienteDAO().SalvarCadastro(cliente);
+			await MensagemTemporaria3s(salvou);
 		}
 
-		
-
-		// Zera os campos após salvar
-		cliente = new Cliente();
 		salvando = false;
 	}
 
 	private void lista()
 	{
 		Navigation.NavigateTo("/lista");
+	}
+
+	private async Task MensagemTemporaria3s(bool salvou)
+	{
+		if (salvou)
+		{
+			mensagemTemporaria = "salvo com sucesso";
+			textColor = "text-primary";
+			cliente = new Cliente();
+		}
+
+		else
+		{
+			mensagemTemporaria = "Deu um errinho basico";
+			textColor = "text-danger";
+		}
+
+		StateHasChanged();	
+		await Task.Delay(2000);
+		StateHasChanged();
+		mensagemTemporaria = string.Empty;
 	}
 }
