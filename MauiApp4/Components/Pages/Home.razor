@@ -32,8 +32,8 @@
 	Cliente cliente = new();
 	bool salvando;
 	bool salvou;
-	string mensagemTemporaria = "";
-	string textColor = "";
+	string? mensagemTemporaria;
+	string? textColor;
 
 	protected override async Task OnInitializedAsync()
 	{
