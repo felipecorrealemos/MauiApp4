@@ -10,13 +10,13 @@ namespace MauiApp4.Components.DAO
 {
     public class ClienteDAO
     {
+        // string de conexão
+        string connectionString = "server=localhost;user=root;password=root;database=db_empresa_one;";
+
         public async Task<bool> SalvarCadastro(Cliente novocliente)
         {
             try
             {
-                // string de conexão
-                string connectionString = "server=localhost;user=root;password=root;database=db_empresa_one;";
-
                 await using var conn = new MySqlConnection(connectionString);
 
                 await conn.OpenAsync();
@@ -45,9 +45,6 @@ namespace MauiApp4.Components.DAO
 
             try
             {
-                // string de conexão
-                string connectionString = "server=localhost;user=root;password=root;database=db_empresa_one;";
-
                 await using var conn = new MySqlConnection(connectionString);
                 await conn.OpenAsync();
 
@@ -83,9 +80,6 @@ namespace MauiApp4.Components.DAO
         {
             try
             {
-                // string de conexão
-                string connectionString = "server=localhost;user=root;password=root;database=db_empresa_one;";
-
                 await using var conn = new MySqlConnection(connectionString);
 
                 await conn.OpenAsync();
@@ -109,8 +103,6 @@ namespace MauiApp4.Components.DAO
         {
             try
             {
-                string connectionString = "server=localhost;user=root;password=root;database=db_empresa_one;";
-
                 await using var conn = new MySqlConnection(connectionString);
                 await conn.OpenAsync();
 
@@ -135,19 +127,14 @@ namespace MauiApp4.Components.DAO
 
             catch (Exception ex)
             {
-
                 return null;
             }
         }
-
 
         public async Task AtualizarCliente(Cliente cliente)
         {
             try
             {
-                // string de conexão
-                string connectionString = "server=localhost;user=root;password=root;database=db_empresa_one;";
-
                 await using var conn = new MySqlConnection(connectionString);
 
                 await conn.OpenAsync();
